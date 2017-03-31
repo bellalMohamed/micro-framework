@@ -7,7 +7,9 @@ $app = new App();
 $container = $app->getContainer();
 
 $container['errorHandler'] = function () {
-	// die('404');
+	return function ($response) {
+		$response->setStatus('404');
+	};
 };
 
 $container['config'] = function () {
