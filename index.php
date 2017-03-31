@@ -31,5 +31,6 @@ $app->get('/home', function () {
 });
 
 $app->get('/users', [\App\Controllers\UserController::class, 'index']);
+$app->get('/users/all', [new \App\Controllers\UserController($container->db), 'users']);
 
 $app->run();
