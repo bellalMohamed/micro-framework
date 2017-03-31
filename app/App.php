@@ -38,21 +38,44 @@ class App {
 		return $this->container;
 	}
 
+	/**
+	 * add get method route
+	 * @param  mixed $uri
+	 * @param  mixed $handler
+	 * @return void
+	 */
 	public function get($uri, $handler)
 	{
 		$this->container->router->addRoute($uri, $handler, ['GET']);
 	}
 
+	/**
+	 * add post methods route
+	 * @param  mixed $uri
+	 * @param  mixed $handler
+	 * @return void
+	 */
 	public function post($uri, $handler)
 	{
 		$this->container->router->addRoute($uri, $handler, ['POST']);
 	}
 
+	/**
+	 * Add single/multiable methods to one route
+	 * @param  mixed $uri
+	 * @param  mixed $handler
+	 * @param  array  $methods
+	 * @return void
+	 */
 	public function map($uri, $handler, array $methods = ['GET'])
 	{
 		$this->container->router->addRoute($uri, $handler, $methods);
 	}
 
+	/**
+	 * run the app, apply routes
+	 * @return mixed
+	 */
 	public function run()
 	{
 		$router = $this->container->router;
@@ -70,6 +93,11 @@ class App {
 		return $this->respond($this->process($response));
 	}
 
+	/**
+	 * Process responses
+	 * @param  mixed $callable
+	 * @return closure
+	 */
 	protected function process($callable)
 	{
 		$response = $this->container->response;
@@ -82,6 +110,11 @@ class App {
 		return $callable($response);
 	}
 
+	/**
+	 * Handle responds
+	 * @param  mixed $response
+	 * @return mixed
+	 */
 	protected function respond($response)
 	{
 		header(sprintf(
